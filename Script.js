@@ -1,11 +1,11 @@
-textureW = 2540;
-textureH = 1667;
+textureW = 1920;
+textureH = 1080;
 
-rearW = 2540;
-rearH = 952;
+rearW = 1920;
+rearH = 540;
 
-frontW = 2380;
-frontH = 715;
+frontW = 1920;
+frontH = 540;
 
 function Initialize() 
 { 
