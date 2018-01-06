@@ -1,11 +1,12 @@
 var curScene = 0;
 var sceneCount = 4;
-var node;
+var sceneNumberNode;
+var isAlpha = true;
 
 function Initialize() 
 { 
     layer = Document.FindLayer("Untitled Layer");
-    node = layer.FindNode("s_SceneNumber");
+    sceneNumberNode = layer.FindNode("s_SceneNumber");
     
     // Initialize any *internal* variables here.
 }
@@ -16,8 +17,28 @@ function OnKeyPress(key){
     	if(curScene>sceneCount){
     		curScene = 0;
     	}
-    	node.SetFloat("Attributes.Value", curScene);
+    	sceneNumberNode.SetFloat("Attributes.Value", curScene);
     	Log(curScene);
+    }
+    if(key=='W'){
+        layer = Document.FindLayer("Untitled Layer");
+        if(isAlpha){
+            for (var i = 0; i < layer.GetNumNodes(); i++) {
+                node = layer.GetNode(i);
+                if(node.GetName() == "s_Hide"){
+                    node.SetFloat("Attributes.Alpha", 0);
+                }
+            }
+        }else{
+            for (var i = 0; i < layer.GetNumNodes(); i++) {
+                node = layer.GetNode(i);
+                if(node.GetName() == "s_Hide"){
+                    node.SetFloat("Attributes.Alpha", 1);
+                }
+            }
+        }
+
+        isAlpha ^= true;
     }
 }
 
