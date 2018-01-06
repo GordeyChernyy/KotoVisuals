@@ -28,10 +28,10 @@ function Initialize()
     for (var i = 0; i < layer.GetNumNodes(); i++) {
     	node = layer.GetNode(i);
     	if(node.GetName() == "Texture Rear"){
-    		node.SetFloat("Transform.Position Y", rearPosY);
+    		node.SetFloat("Transform.Position Y", -0.5);
     		node.SetFloat("Transform.Scale Y", rearScaleY);
     	}else if(node.GetName() == "Texture Front"){
-			node.SetFloat("Transform.Position Y", frontPosY);
+			node.SetFloat("Transform.Position Y", 0.5);
     		node.SetFloat("Transform.Scale Y", frontScaleY);
     		node.SetFloat("Transform.Scale X", frontScaleX);
     	}else if(node.GetName() == "Render Rear"){
