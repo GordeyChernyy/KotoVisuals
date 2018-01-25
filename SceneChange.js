@@ -2,6 +2,7 @@ var curScene = 0;
 var sceneCount = 4;
 var sceneNumberNode;
 var fadeImageNode;
+var fadeTimeNode;
 var isAlpha = true;
 var isFade = false;
 var curFadeValue = 0.0;
@@ -12,13 +13,14 @@ function Initialize()
     layer = Document.FindLayer("Untitled Layer");
     sceneNumberNode = layer.FindNode("s_SceneNumber");
     fadeImageNode = layer.FindNode("s_FadeImage");
-
+    fadeTimeNode = layer.FindNode("s_FadeTime");
     // Initialize any *internal* variables here.
 }
 
 function Update(){
     if(isFade){
-        curFadeValue += 0.02 * dir;
+        var time = fadeTimeNode.GetFloat("Attributes.Value");
+        curFadeValue += (1.0/ (time <= 0 ? 0.01 : time *60.0)) * dir;
         
         if(curFadeValue>1){ // fade out
             sceneNumberNode.SetFloat("Attributes.Value", curScene);
@@ -30,9 +32,13 @@ function Update(){
             isFade = false;
             fadeImageNode.SetFloat("Attributes.Alpha", 0);
         }
-        fadeImageNode.SetFloat("Attributes.Alpha", curFadeValue);
-        // Log();
+
+        fadeImageNode.SetFloat("Attributes.Alpha", clamp(curFadeValue, 0, 1));
     }
+}
+
+function clamp (value, min, max) {
+  return Math.min(Math.max(value, min), max);
 }
 
 function NextScene(){
